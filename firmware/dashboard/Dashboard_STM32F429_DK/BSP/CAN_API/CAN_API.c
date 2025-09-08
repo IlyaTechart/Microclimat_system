@@ -93,7 +93,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 
     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &g_RxHeader, g_RxData) == HAL_OK)
     {
-    	CAN_State.CAN_NumberRX++; // счётчик принятых сообщений
+    	if(CAN_State.CAN_NumberRX < 0xFF)
+    	{
+        	CAN_State.CAN_NumberRX++; // счётчик принятых сообщений
+    	}
+
     }
 }
 

@@ -123,7 +123,7 @@ int main(void)
 		  TxData[3] = 0x00;
 	  }
 	  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
-	    CAN1_Tx(0x032, TxData, sizeof(TxData), CAN_RTR_DATA);
+	    CAN1_Tx(0x101, TxData, sizeof(TxData), CAN_RTR_DATA);
 	  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
 	  	HAL_Delay(10);
     /* USER CODE END WHILE */
