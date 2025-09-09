@@ -109,6 +109,8 @@ int main(void)
 		  Error_Handler();
 	}
 
+	HAL_Delay(500);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -116,16 +118,19 @@ int main(void)
   while (1)
   {
 
+
 	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
 	  {
-		  TxData[3] = 0xFF;
+		  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
+		    CAN1_Tx(0x101, TxData, sizeof(TxData), CAN_RTR_DATA);
+			HAL_Delay(500);
 	  }else{
-		  TxData[3] = 0x00;
+		  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
 	  }
-	  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
-	    CAN1_Tx(0x101, TxData, sizeof(TxData), CAN_RTR_DATA);
-	  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
-	  	HAL_Delay(10);
+
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

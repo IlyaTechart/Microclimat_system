@@ -15,8 +15,12 @@ CAN_RxHeaderTypeDef g_RxHeader;
 uint8_t g_RxData[8];
 
 
-void CAN1_Tx(uint16_t ID, uint8_t *Data, uint8_t DLC, uint32_t CAN_RTR)
+void CAN1_Tx(uint16_t ID, uint8_t DLC, uint8_t *Data, uint32_t CAN_RTR)
 {
+
+//	CAN_RTR_DATA                (0x00000000U)  /*!< Data frame   */
+//	CAN_RTR_REMOTE              (0x00000002U)  /*!< Remote frame */
+
 	CAN_TxHeaderTypeDef TxHeader;
 
 	TxHeader.StdId = ID;
@@ -40,7 +44,7 @@ void CAN_Init_FilterConfig(void)
 	  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE; // Включить фильтр
 	  canfilterconfig.FilterBank = 0; // Используем 0-й банк фильтров
 	  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0; // Направлять в FIFO0
-	  canfilterconfig.FilterMode = CAN_FILTERMODE_IDLIST; // Режим маски (для точного совпадения маска будет из всех единиц)
+	  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK; // Режим маски (для точного совпадения маска будет из всех единиц)
 	  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT; // 32-битный масштаб
 
 	  // Чтобы поймать ТОЛЬКО ID 0x321, мы ставим его и в ID, и в маску.
@@ -50,7 +54,7 @@ void CAN_Init_FilterConfig(void)
 	  canfilterconfig.FilterIdLow = 0x0000;
 
 
-	  canfilterconfig.FilterMaskIdHigh = 0x201 << 5;
+	  canfilterconfig.FilterMaskIdHigh = 0x101 << 5;
 	  canfilterconfig.FilterMaskIdLow = 0x0000;
 
 	  // Альтернативный и более простой способ для точного совпадения - режим списка

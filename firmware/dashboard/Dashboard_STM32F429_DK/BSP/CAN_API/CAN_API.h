@@ -31,7 +31,7 @@ typedef struct
 
 
 
-void CAN1_Tx(uint16_t ID, uint8_t *Data, uint8_t DLC, uint32_t CAN_RTR);
+void CAN1_Tx(uint16_t ID, uint8_t DLC, uint8_t *Data, uint32_t CAN_RTR);
 void CAN_Init_FilterConfig(void);
 void CAN1_Rx(uint8_t *Data);
 

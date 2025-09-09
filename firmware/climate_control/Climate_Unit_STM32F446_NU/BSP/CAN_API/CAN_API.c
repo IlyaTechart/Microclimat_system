@@ -40,17 +40,17 @@ void CAN_Init_FilterConfig(void)
 	  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE; // Включить фильтр
 	  canfilterconfig.FilterBank = 0; // Используем 0-й банк фильтров
 	  canfilterconfig.FilterFIFOAssignment = CAN_RX_FIFO0; // Направлять в FIFO0
-	  canfilterconfig.FilterMode = CAN_FILTERMODE_IDLIST; // Режим маски (для точного совпадения маска будет из всех единиц)
+	  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK; // Режим маски (для точного совпадения маска будет из всех единиц)
 	  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT; // 32-битный масштаб
 
 	  // Чтобы поймать ТОЛЬКО ID 0x321, мы ставим его и в ID, и в маску.
 	  // Но ID нужно сдвинуть влево на 5 бит, т.к. стандартный ID занимает старшие биты в 16-битном поле.
 	  // Для 32-битного фильтра стандартный ID сдвигается на 21 бит.
-	  canfilterconfig.FilterIdHigh = 0x101 << 5;
+	  canfilterconfig.FilterIdHigh = 0x102 << 5;
 	  canfilterconfig.FilterIdLow = 0x0000;
 
 
-	  canfilterconfig.FilterMaskIdHigh = 0x201 << 5;
+	  canfilterconfig.FilterMaskIdHigh = 0x102 << 5;
 	  canfilterconfig.FilterMaskIdLow = 0x0000;
 
 	  // Альтернативный и более простой способ для точного совпадения - режим списка
