@@ -109,8 +109,20 @@ int main(void)
   {
 	  CAN_Protocol_ProcessQueue();
 	  HAL_Delay(10);
+	  uint16_t cnt = 0x101;
+	  while(cnt < 0x106)
+	  {
+		  while(! HAL_CAN_GetTxMailboxesFreeLevel(&hcan1));
+		  CAN_Driver_Transmit(cnt, TxData, 8, CAN_RTR_DATA);
+		  cnt++;
+	  }
 
-
+	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
+	  {
+		  TxData[3] = 0xFF;
+	  }else{
+		  TxData[3] = 0x00;
+	  }
 
     /* USER CODE END WHILE */
 

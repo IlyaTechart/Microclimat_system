@@ -25,7 +25,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "cmsis_os2.h"
-#include "CAN_API.h"
+#include "CAN_driver.h"
+#include "CAN_protocol.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,11 +64,12 @@ void RecesiveData(void *argument)
 		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
 		  {
 			  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, SET);
-			  CAN1_Tx(0x102, 8, TxData, CAN_RTR_DATA);
+			  CAN_Driver_Transmit(0x102, TxData, 8, CAN_RTR_DATA);
 			  osDelay(500);
 		  }else{
 			  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, RESET);
 		  }
+		  CAN_Protocol_ProcessQueue();
 
 	}
 }

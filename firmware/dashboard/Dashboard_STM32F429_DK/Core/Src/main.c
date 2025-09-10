@@ -22,7 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "CAN_API.h"
+#include "CAN_driver.h"
+#include "CAN_protocol.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,19 +110,10 @@ int main(void)
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, RESET);
 
-  CAN_Init_FilterConfig();
+  CAN_Driver_AddFilterMask(&hcan1, 0x100, 0x200);
+  CAN_Protocol_Init(&hcan1);
 
-  if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING | CAN_IT_ERROR | CAN_IT_BUSOFF | CAN_IT_ERROR_PASSIVE | CAN_IT_ERROR_WARNING) != HAL_OK)
-  {
-  	Error_Handler();
-  }
-
-  if(HAL_CAN_Start(&hcan1) == HAL_ERROR)
-  {
-  	  Error_Handler();
-  }
 
   /* USER CODE END 2 */
 

@@ -76,10 +76,10 @@ void CAN_Driver_AddFilterMask(CAN_HandleTypeDef *hcan, uint16_t low_id, uint16_t
       uint32_t final_filter_id = filter_id_32 << 21;
       uint32_t final_mask = (filter_mask_32 << 21) | 0x001FFFFF; // Маскируем также IDE, RTR и EXID биты, чтобы они не влияли
 
-	  canfilterconfig.FilterIdHigh =       (final_filter_id >> 16) & 0xFFFF;
-	  canfilterconfig.FilterIdLow =         final_filter_id & 0xFFFF;
-	  canfilterconfig.FilterMaskIdHigh =   (final_mask >> 16) & 0xFFFF;
-	  canfilterconfig.FilterMaskIdLow =     final_mask & 0xFFFF;
+	  canfilterconfig.FilterIdHigh =       (0b100000000<< 5) & 0xFFFF;
+	  canfilterconfig.FilterIdLow =        0; //final_filter_id & 0xFFFF;
+	  canfilterconfig.FilterMaskIdHigh =   (0b111111 << 8) & 0xFFFF;
+	  canfilterconfig.FilterMaskIdLow =   0; // final_mask << 0xFFFF;
 
 	  if (HAL_CAN_ConfigFilter(hcan, &canfilterconfig) != HAL_OK)
 	  {
