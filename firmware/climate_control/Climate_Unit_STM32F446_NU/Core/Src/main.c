@@ -18,10 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "../../BSP_Low_Layer/CAN_API/CAN_driver.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "CAN_API.h"
 
 /* USER CODE END Includes */
 
@@ -95,19 +95,7 @@ int main(void)
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
 
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, RESET);
-
-	CAN_Init_FilterConfig();
-
-	if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING | CAN_IT_ERROR | CAN_IT_BUSOFF | CAN_IT_ERROR_PASSIVE | CAN_IT_ERROR_WARNING) != HAL_OK)
-	{
-		Error_Handler();
-	}
-
-	if(HAL_CAN_Start(&hcan1) == HAL_ERROR)
-	{
-		  Error_Handler();
-	}
+  CAN_Driver_Init(&hcan1, NULL);
 
 	HAL_Delay(500);
 
@@ -122,7 +110,7 @@ int main(void)
 	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
 	  {
 		  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
-		    CAN1_Tx(0x101, TxData, sizeof(TxData), CAN_RTR_DATA);
+
 			HAL_Delay(500);
 	  }else{
 		  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);

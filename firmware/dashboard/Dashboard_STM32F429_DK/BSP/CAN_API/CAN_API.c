@@ -63,11 +63,10 @@ void CAN_Init_FilterConfig(void)
 	    uint32_t filter_id   = (0x100 << 21);
 	    uint32_t filter_mask = (0x7F8 << 21);
 
-	    canfilterconfig.FilterIdHigh =       (filter_id >> 16) & 0xFFFF; // Место №1: ID 0x101
-	    canfilterconfig.FilterIdLow =         filter_id & 0xFFFF; // Место №2: ID 0x102
-	    canfilterconfig.FilterMaskIdHigh =   (filter_mask >> 16) & 0xFFFF; // Место №3: ID 0x103
-	    canfilterconfig.FilterMaskIdLow =    filter_mask & 0xFFFF; // Место №4: ID 0x104
-
+	    canfilterconfig.FilterIdHigh =       (filter_id >> 16) & 0xFFFF;
+	    canfilterconfig.FilterIdLow =         filter_id & 0xFFFF;
+	    canfilterconfig.FilterMaskIdHigh =   (filter_mask >> 16) & 0xFFFF;
+	    canfilterconfig.FilterMaskIdLow =     filter_mask & 0xFFFF;
 	  // Применяем конфигурацию
 	  if (HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig) != HAL_OK)
 	  {
