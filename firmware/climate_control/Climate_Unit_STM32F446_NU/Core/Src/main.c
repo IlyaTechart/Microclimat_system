@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "../../BSP_Low_Layer/CAN_API/CAN_driver.h"
+#include "CAN_protocol.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -95,9 +95,11 @@ int main(void)
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
 
-  CAN_Driver_Init(&hcan1, NULL);
+  CAN_Driver_AddFilterList(&hcan1, 0x102, 1);
+  CAN_Protocol_Init(&hcan1);
 
-	HAL_Delay(500);
+
+  HAL_Delay(500);
 
   /* USER CODE END 2 */
 
@@ -105,17 +107,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-
-	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
-	  {
-		  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
-
-			HAL_Delay(500);
-	  }else{
-		  	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
-	  }
-
+	  CAN_Protocol_ProcessQueue();
+	  HAL_Delay(10);
 
 
 

@@ -39,7 +39,7 @@ typedef struct
 
 void CAN_Driver_Init(CAN_HandleTypeDef *hcan, can_rx_callback_t rx_callback);
 void CAN_Driver_AddFilterMask(CAN_HandleTypeDef *hcan, uint16_t low_id, uint16_t high_id);
-void CAN_Init_FilterConfigList(CAN_HandleTypeDef *hcan, uint16_t id, uint8_t filter_bank);
+void CAN_Driver_AddFilterList(CAN_HandleTypeDef *hcan, uint16_t id, uint8_t filter_bank);
 HAL_StatusTypeDef CAN_Driver_Transmit(uint16_t id, uint8_t *data, uint8_t dlc, uint32_t FRAME_RTR);
 
 #ifdef USE_LOOP_CAN_RX

@@ -21,16 +21,14 @@ void CAN_Driver_Init(CAN_HandleTypeDef *hcan, can_rx_callback_t rx_callback)
 	CAN_Config.hcan = hcan;
 	CAN_Config.rx_callback = rx_callback;
 
-	if (HAL_CAN_ActivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING | CAN_IT_ERROR | CAN_IT_BUSOFF | CAN_IT_ERROR_PASSIVE | CAN_IT_ERROR_WARNING) != HAL_OK)
-	{
-		Error_Handler();
-	}
-
-	CAN_Init_FilterConfigList(hcan, 0x102, 1); // Фильтр по ID 0x102 в банк 1
-
 	if(HAL_CAN_Start(hcan) == HAL_ERROR)
 	{
 		  Error_Handler();
+	}
+
+	if (HAL_CAN_ActivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING | CAN_IT_ERROR | CAN_IT_BUSOFF | CAN_IT_ERROR_PASSIVE | CAN_IT_ERROR_WARNING) != HAL_OK)
+	{
+		Error_Handler();
 	}
 }
 
@@ -71,7 +69,7 @@ void CAN_Driver_AddFilterMask(CAN_HandleTypeDef *hcan, uint16_t low_id, uint16_t
  * FilterNank 0 - зарезервирован для маски
  */
 
-void CAN_Init_FilterConfigList(CAN_HandleTypeDef *hcan, uint16_t id, uint8_t FilterBank)
+void CAN_Driver_AddFilterList(CAN_HandleTypeDef *hcan, uint16_t id, uint8_t FilterBank)
 {
 	  CAN_FilterTypeDef canfilterconfig;
 

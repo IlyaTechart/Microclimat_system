@@ -33,6 +33,8 @@ typedef struct {
 	uint8_t count;
 } CAN_MessageQueue_t;
 
+void CAN_Protocol_Init(CAN_HandleTypeDef *hcan);
+
 // Функция, которую нужно периодически вызывать из main()
 void CAN_Protocol_ProcessQueue(void);
 
